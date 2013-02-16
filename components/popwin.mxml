@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   x="280" y="210" width="668" height="456" backgroundColor="#FFFFFF"
+				   borderAlpha="0.48" borderColor="#B4B4B4" borderVisible="true" borderWeight="1"
+				   chromeColor="#CB9E9E" cornerRadius="1" dropShadowVisible="true"
+				   mouseDownOutside="PopUpManager.removePopUp(this)">
+	
+
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	
+	
+
+	<fx:Script>
+
+		<![CDATA[
+			
+			import mx.core.IFlexDisplayObject;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			
+
+			
+		]]>
+		
+	</fx:Script>
+		
+				
+
+		
+	<s:Image id="c1" x="18" y="48" width="486" height="328" source="assets/unosC.png" />
+		<s:BorderContainer x="17" y="10" width="597" height="413" borderColor="#763939"
+						   borderVisible="false" borderWeight="5" cornerRadius="5"
+						   dropShadowVisible="false">
+			
+		<s:Image x="0" y="-18" width="634" height="469"
+				 source="@Embed('file:///Users/ZiruiZHAO/Pictures/large_65hO_633600019e0e1262.jpg')"/>
+		
+		</s:BorderContainer>
+	
+	</s:BorderContainer>
+	
+

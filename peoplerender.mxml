@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:s="library://ns.adobe.com/flex/spark"
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				xmlns:photoservice="services.photoservice.*"
+				width="280" height="200" autoDrawBackground="true" contentBackgroundColor="#E5E5E3"
+				rollOverColor="#CEDBEF">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.adobe.serializers.utility.TypeUtility;
+			
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			
+			/*public var time_str:String;
+			
+			
+			protected function linkbutton1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				var url:String=eventurl_str.text.toString();
+				var request:URLRequest=new URLRequest(url);
+				navigateToURL(request,"_blank"); 
+			}
+			*/
+			
+			
+			//
+			/*restore my code here
+			<s:Label x="150" y="98" width="290" height="35" color="#C6A7A7" fontFamily="Georgia"
+			fontSize="15" text="{data.venue.address_1}, {data.venue.city}">	
+			</s:Label>
+			
+			<s:Label x="37" y="22" width="91" height="25" color="#F60505" fontFamily="Verdana"
+			fontStyle="italic" fontWeight="bold" text="{data.status}!"/>
+			<s:Label x="149" y="138" width="290" height="34" color="#C1C7B3" fontSize="13"
+			text="By {data.group.name}"/>
+			
+			//
+			<s:Label x="509" y="128" width="181" height="29" color="#1A93E7" text="{data.event_url}" id="eventurl_str" visible="false">
+			</s:Label>
+			//
+			*/
+			/*
+			<mx:LinkButton x="488" y="146" label="&gt;&gt;view more"
+			click="linkbutton1_clickHandler(event)" color="#4C818D" focusColor="#FFFFFF"
+			fontSize="14" rollOverColor="#FFFFFF"
+			selectionColor="#FFFFFF"/>
+			*/
+			//
+			
+		]]>
+	</fx:Script>
+	
+	
+	
+	<s:BorderContainer x="10" y="10" width="260" height="180" borderVisible="false">
+		<s:Label x="19" y="77" width="172" height="46" color="#92C9E8" fontFamily="Times New Roman"
+				 fontSize="15" fontStyle="normal" fontWeight="normal" text="User ID: {data.id}"/>
+		
+		
+		
+		<s:Label x="19" y="10" width="172" height="48" color="#C1C7B3" fontFamily="Georgia"
+				 fontSize="15" fontWeight="bold" text="Name: {data.name} " textAlign="left"
+				 verticalAlign="top"/>
+		<s:Image x="190" y="10" 
+				 source="http://graph.facebook.com/{data.id}/picture"/>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</s:BorderContainer>
+	
+	
+	
+</s:ItemRenderer>

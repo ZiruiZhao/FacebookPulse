@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SkinnableContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+					  xmlns:s="library://ns.adobe.com/flex/spark"
+					  xmlns:mx="library://ns.adobe.com/flex/mx"
+					  width="400" height="300"
+					  width.roll="100" height.roll="120" backgroundAlpha.roll="0.0"
+					  backgroundColor.roll="#ECEAEA" contentBackgroundAlpha.roll="0.0"
+					  width.State1="100" height.State1="120" backgroundAlpha.State1="0.0"
+					  backgroundColor.State1="#F7F7F7" contentBackgroundAlpha.State1="0.0"
+					  contentBackgroundColor.State1="#D08787">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.IFlexDisplayObject;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			
+			[Bindable]
+			public var pImage:String;
+			
+			[Bindable]
+			public var pName:String;
+			
+			[Bindable]
+			public var pID:String;
+			
+			//
+			/*private function createPopUp(evt:MouseEvent):void {
+			var win : popwin = new popwin;
+			PopUpManager.addPopUp(win,this,true);
+			PopUpManager.centerPopUp(win);
+			}*/
+			//
+			
+			//
+			
+			
+			protected function pgroup_mouseOverHandler(event:MouseEvent):void
+			{
+				
+				currentState="roll";
+				
+			}
+			
+			protected function pgroup_mouseOutHandler(event:MouseEvent):void
+			{
+				
+				currentState="State1";
+			}
+			
+			
+			protected function rollgroup_mouseOverHandler(event:MouseEvent):void
+			{
+				
+				currentState="roll";
+			}
+			
+			protected function rollgroup_mouseOutHandler(event:MouseEvent):void
+			{
+				currentState="State1";
+			}
+			
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="State1"/>
+		<s:State name="roll"/>
+	</s:states>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Group id="pgroup" includeIn="State1" width="100" height="100" contentBackgroundColor="#E1DFDF"
+			 mouseOver="pgroup_mouseOverHandler(event)">
+		<s:layout >
+			<s:VerticalLayout/>
+		</s:layout>
+		<s:BitmapImage x="20" width="100" height="100" source="{pImage}"/>
+		<s:Label width="100" height="13" fontSize="10" fontWeight="bold" text="{pName}"
+				 textAlign="center" verticalAlign="middle"/>
+		
+	</s:Group>
+	
+	<s:Group id="rollgroup_abolish" includeIn="roll" width="100" height="100"
+			 contentBackgroundColor="#F5F3F3" 
+			 >
+		
+		<s:BitmapImage x="0" width="100" height="100" source="{pImage}" alpha="0.3"/>
+		
+		<s:Label y="40" width="100" height="20" fontSize="10" fontWeight="bold" text="{pName}"
+				 textAlign="center" verticalAlign="middle"/>
+		<s:Label x="0" y="70" width="100" height="20" fontSize="8" text="{pID}" textAlign="center"
+				 verticalAlign="middle"/>
+		<s:Label x="0" y="100" width="100" height="20" fontSize="10" fontWeight="bold"
+				 text="See more? Click!" textAlign="center" verticalAlign="middle"/>
+		<s:Group id="rollgroup" x="0" y="0" width="200" height="200" mouseOut="rollgroup_mouseOutHandler(event)" >
+		</s:Group>
+		
+	</s:Group>
+	
+</s:SkinnableContainer>
+

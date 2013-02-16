@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   xmlns:faceinfo="services.faceinfo.*"
+				   x="280" y="210" width="668" height="456" backgroundColor="#FFFFFF"
+				   borderAlpha="0.48" borderColor="#B4B4B4" borderVisible="true" borderWeight="1"
+				   chromeColor="#CB9E9E" cornerRadius="1"
+				   creationComplete="bordercontainer1_creationCompleteHandler(event)"
+				   dropShadowVisible="true" mouseDownOutside="PopUpManager.removePopUp(this)">
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<mx:Fade id="fadeIn" duration="2000" alphaFrom="0.18" alphaTo="1.0"/>
+		<s:CallResponder id="searchinfoResult"/>
+		<faceinfo:Faceinfo id="faceinfo"
+						   fault="Alert.show(event.fault.faultString + '\n' + event.fault.faultDetail)"
+						   showBusyCursor="true"/>
+	</fx:Declarations>
+	
+	
+	
+	
+	<fx:Script>
+
+		<![CDATA[
+			import com.adobe.serializers.utility.TypeUtility;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.core.IFlexDisplayObject;
+			import mx.core.UIComponent;
+			import mx.events.CloseEvent;
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			[Bindable] 
+			private var picArray:ArrayCollection;
+			[Bindable]
+			private var index:Number = 0;
+			
+			public var _id:String;
+			public var _atoken:String
+			public function set s(id:String):void{
+				this._id=id;	
+			}
+			public function set t(token:String):void{
+				this._atoken=token;	
+			}
+			
+			private function init():void
+			{
+				var loader:URLLoader = new URLLoader();
+				loader.addEventListener(Event.COMPLETE,onComplete);
+				loader.load(new URLRequest("data/pic.xml"));
+			}
+			
+			private function onComplete(event:Event):void
+			{
+				var xml:XML = new XML(event.target.data);
+				
+				picArray = new ArrayCollection();
+				for(var i:Number = 0;i <xml.children().length();i++)
+				{
+					var o:Object = new Object();
+					o.ImageUrl = xml.pic[i].imageUrl;
+					picArray.addItem(o);
+				} 
+			}
+			
+			private function onClickHandler(id:String):void
+			{
+				switch(id)
+				{
+					case "btn1":
+						this.index = 0;
+						break;
+					case "btn2":
+						if(this.index != 0)
+						{
+							this.index -= 1;
+						}
+						break;
+					case "btn3":
+						if(this.index != picArray.length-1)
+						{
+							this.index += 1;
+						}
+						break;
+					case "btn4":
+						this.index = picArray.length - 1;
+						break;
+				}
+			}
+			
+			private function onImageClick(event:MouseEvent):void
+			{
+				if(this.index == picArray.length -1)
+				{
+					this.index = 0;
+				}
+				else
+				{
+					this.index++;
+				}
+			}
+			
+			protected function bordercontainer1_creationCompleteHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				searchinfoResult.token = faceinfo.searchinfo(/*Enter value(s) for */ _id, _atoken);
+			}
+			
+			
+			protected function dataGrid_creationCompleteHandler(event:FlexEvent):void
+			{
+				searchinfoResult.token = faceinfo.searchinfo(/*Enter value(s) for */ _id, _atoken);
+			}
+
+		]]>
+		
+	</fx:Script>
+	
+	
+	
+	
+	<s:Image id="c1" x="18" y="48" width="486" height="328" source="assets/unosC.png"
+			 />
+	
+	<s:BorderContainer x="17" y="10" width="597" height="413" borderColor="#763939"
+					   borderVisible="false" borderWeight="5" cornerRadius="5"
+					   dropShadowVisible="false">
+		
+		<s:Image x="0" y="-18" width="634" height="469" alpha="0.2"
+				 source="assets/large_65hO_633600019e0e1262.jpg"/>
+		
+		<s:Label id="education0" x="280" y="259" width="238" height="45" fontFamily="Verdana"
+				 fontSize="18" fontWeight="bold" text="{searchinfoResult.lastResult.education[0].school.name}"/>
+		<s:Label id="education2" x="280" y="114" width="238" height="45" fontFamily="Verdana"
+				 fontSize="18" fontWeight="bold" text="{searchinfoResult.lastResult.education[2].school.name}"/>
+		<s:Image id="photo" x="62" y="37" source="http://graph.facebook.com/{searchinfoResult.lastResult.id}/picture"/>
+		<s:Label id="name1" x="187" y="47" width="404" height="45" fontFamily="Verdana" fontSize="20"
+				 fontWeight="bold" text="{searchinfoResult.lastResult.name}" verticalAlign="top"/>
+		<s:Label id="gender" x="43" y="115" width="200" height="45" fontFamily="Verdana"
+				 fontSize="18" fontWeight="bold" text="{searchinfoResult.lastResult.gender}"/>
+		<s:Label id="hometown" x="43" y="189" width="200" height="45" fontFamily="Verdana"
+				 fontSize="18" fontWeight="bold" text="Hometown: {searchinfoResult.lastResult.hometown.name}"/>
+		<s:Label id="location" x="43" y="259" width="151" height="45" fontFamily="Verdana"
+				 fontSize="18" fontWeight="bold" text="Location: {searchinfoResult.lastResult.location.name}"/>
+		<s:Label id="education1" x="280" y="189" width="238" height="45" fontFamily="Verdana"
+				 fontSize="18" fontWeight="bold" text="{searchinfoResult.lastResult.education[1].school.name}"/>
+		<s:Label id="relationship" x="43" y="337" width="200" height="45" fontFamily="Verdana"
+				 fontSize="18" fontWeight="bold" text="{searchinfoResult.lastResult.relationship_status}"/>
+		<s:Label id="mate" x="280" y="337" width="238" height="45" fontFamily="Verdana" fontSize="18"
+				 fontWeight="bold" text="{searchinfoResult.lastResult.significant_other.name}"/>
+		<s:Button width="90" height="63" label="✚ Friend" buttonMode="true" x="544"
+				  chromeColor="#050000" color="#FCFBFB" fontSize="16"
+				  fontStyle="normal" fontWeight="bold"  mouseChildren="false" alpha="1"
+				  verticalCenter="-94" click="navigateToURL(new URLRequest('http://www.facebook.com/addfriend.php?id='+searchinfoResult.lastResult.id),'_blank')"/>
+		<s:Button width="90" height="63" label="➜ Home" buttonMode="true" x="544"
+				  chromeColor="#050000" color="#FCFBFB" fontSize="16"
+				  fontStyle="normal" fontWeight="bold"  mouseChildren="false" alpha="1"
+				  verticalCenter="65" click="navigateToURL(new URLRequest(searchinfoResult.lastResult.link),'_blank')"/>
+	</s:BorderContainer>
+	<s:Image x="667" y="0"
+			 source="assets/FCA03EB7-1EF4-4CD5-9B20-366901A5908A.png"
+			 click="PopUpManager.removePopUp(this)" toolTip="Click outside area can also close this popbox" buttonMode="true"
+			 />
+	<!-->
+	<mx:Panel x="73" y="78" width="701" height="536" layout="absolute" fontSize="12">
+		<mx:Image x="0" y="0" width="680" height="455" id="imageShow" completeEffect="{fadeIn}"
+				  source="{picArray.getItemAt(index).ImageUrl}" click="onImageClick(event)"/>
+		<mx:Button x="154" y="463" label="第一张" id="btn1" click="onClickHandler(btn1.id)"/>
+		<mx:Button x="227" y="462" label="上一张" id="btn2" click="onClickHandler(btn2.id)"/>
+		<mx:Button x="300" y="462" label="下一张" id="btn3" click="onClickHandler(btn3.id)"/>
+		<mx:Button x="373" y="462" label="最后一张" id="btn4" click="onClickHandler(btn4.id)"/>
+		<mx:Label x="607" y="466" width="73" id="indexCount" color="#FF0030" fontWeight="bold" 
+				  text="{(index+1) + '/' + picArray.length}"/>
+	</mx:Panel>
+	
+	<!-->
+</s:BorderContainer>
+
+
